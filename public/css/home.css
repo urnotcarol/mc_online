@@ -1,0 +1,66 @@
+ body {
+  min-height: 2000px;
+  padding-top: 70px;
+}
+
+#navbar-search {
+  margin-left: 20px;
+  width: 200px;
+}
+
+.img-items {
+  float: right;
+  margin-right: 5px;
+}
+
+.item-info {
+  padding-top: 10px;
+  padding-left: 0;
+}
+
+.item-name {
+  font-size: 130%;
+  padding-top: 15px;
+  font-weight: bold;
+}
+
+.item-detail {
+  font-size: 70%;
+  line-height: 200%
+}
+
+.item-display {
+  margin-top: 45px;
+}
+
+.sales-text {
+  color: #1ABC9C
+}
+
+.cart-items {
+  font-size: 50%;
+  color: red;
+
+  vertical-align: top;
+}
+
+.selnum input {
+  box-sizing: border-box;
+  width: 72px;
+  height: 23px;
+  margin: 0;
+  font-size: 12px;
+  text-align: center;
+  color: #333;
+}
+
+.cart-plus button {
+  padding: 7px;
+  margin-top: 5px;
+  width: 122px;
+}
+
+.price-text {
+  color: #FF0000;
+  font-size: 70%;
+}

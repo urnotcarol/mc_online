@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>蜀蜀的冒菜小铺</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="flat-ui/dist/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="flat-ui/dist/css/flat-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="Font-Awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/buttons.css">
+  <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+  <div class="navbar navbar-default navbar-lg navbar-fixed-top" role="navigation">
+    <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-4">
+          <span class="sr-only">Toggle navigation</span>
+        </button>
+        <a class="navbar-brand" href="#">蜀蜀的冒菜小铺</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="navbar-collapse-4">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#items-vegetable">素菜区✪ω✪</a></li>
+          <li><a href="#items-meat">荤菜区◕‿◕</a></li>
+        </ul>
+        <form class="navbar-form navbar-left" action="#" role="search">
+          <div class="form-group">
+            <div class="input-group">
+              <input class="form-control" id="navbar-search" type="search" placeholder="搜索想吃的菜(oﾟωﾟo)">
+              <span class="input-group-btn">
+                <button type="submit" class="btn"><span class="fui-search"></span></button>
+              </span>
+            </div>
+          </div>
+        </form>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/cart"><span class="fa fa-shopping-cart fa-lg"></span>&nbsp;&nbsp;&nbsp;购物车&nbsp;<button class="button button-circle button-caution button-tiny" id="cart-nums" style="display:none;"></button></a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">你的名字 <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">修改密码</a></li>
+              <li><a href="#">充值</a></li>
+              <li><a href="#">订单查询</a></li>
+              <li class="divider"></li>
+              <li><a href="#">退出</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div>
+  </div>
+
+  <div id="sample" style="display:none;">
+    <div class="col-md-6 item-display">
+      <div class="col-md-8 item-img">
+        <img class="img-items img-rounded" height="85%" width="85%">
+      </div>
+      <div class="col-md-4 item-info">
+        <p class="item-name"><span class="name-text"></span>&nbsp;&nbsp;&nbsp;<span class="price-text"</span></p>
+        <p class="item-detail">
+          <span class="detail-text">每份约</span><br>
+          库存&nbsp;&nbsp;&nbsp;&nbsp;<span class="stock-text"></span><br>
+          销量&nbsp;&nbsp;&nbsp;&nbsp;<span class="sales-text"></span>
+        </p>
+        <div class="selnum">
+          数量&nbsp;&nbsp;&nbsp;&nbsp;<input class="quatity-input" min="1" type="number" value="1">
+        </div>
+        <div class="cart-plus">
+          <button class="btn btn-primary btn-sm"><i class="fa fa-cart-plus fa-lg"></i>&nbsp;&nbsp;加入购物车</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12" id="items-vegetable">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12" id="items-meat">
+      </div>
+    </div>
+  <script src="/flat-ui/dist/js/vendor/jquery.min.js"></script>
+  <script src="/flat-ui/dist/js/flat-ui.min.js"></script>
+  <script src="/js-cookie/src/js.cookie.js"></script>
+  <script src="/js/home.js"></script>
+</body>
+</html>
