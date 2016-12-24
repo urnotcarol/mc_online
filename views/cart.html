@@ -8,7 +8,6 @@
   <link href="flat-ui/dist/css/flat-ui.css" rel="stylesheet">
   <link rel="stylesheet" href="Font-Awesome/css/font-awesome.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/buttons.css">
-  <link rel="stylesheet" href="css/home.css">
   <link rel="stylesheet" href="css/cart.css">
 
 </head>
@@ -40,7 +39,9 @@
           </div>
         </form>
         <ul class="nav navbar-nav navbar-right">
-          <li  class="active"><a href="/cart"><span class="fa fa-shopping-cart fa-lg"></span>&nbsp;&nbsp;&nbsp;购物车&nbsp;<button class="button button-circle button-caution button-tiny" id="cart-nums" style="display:none;"></button></a></li>
+          <li  class="active"><a href="/cart"><span class="fa fa-shopping-cart fa-lg"></span>&nbsp;&nbsp;&nbsp;购物车&nbsp;
+            <span class="navbar-new">2</span>
+          </a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">你的名字 <b class="caret"></b></a>
             <ul class="dropdown-menu">
@@ -56,31 +57,70 @@
     </div>
   </div>
 
+  <div id="sample" style="display:none;">
+    <div class="col-md-12 box-item">
+      <div class="col-md-1">
+        <label class="checkbox">
+          <input type="checkbox" data-toggle="checkbox" value="">
+        </label>
+      </div>
+      <div class="col-md-4">
+        <div class="col-md-7 item-img">
+          <img class="img-items img-rounded" height="70%" width="70%">
+        </div>
+        <div class="col-md-5 item-name">
+          <span class="name-text"></span>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <span class="price-text"></span>
+      </div>
+      <div class="col-md-2">
+        <span class="quatity-text"></span>
+      </div>
+      <div class="col-md-2">
+        <span class="subtotal-text"></span>
+      </div>
+      <div class="col-md-1">
+        <button type="button" class="btn btn-default btn-xs del-btn"><i class="fa fa-times"></i></button>
+      </div>
+    </div>
+  </div>
+
 
   <div class="container" id="cart-box">
-    <div class="row">
-      <div class="col-md-12 box-head">
-        <div class="col-md-1">全选</div>
+    <div class="row empty-cart" style="display:none;">
+    <span class="fa fa-shopping-cart fa-5x"></span>
+    <p>购物车还是空的(・(ｪ)・)</p>
+    <button class="btn btn-link"><a href="../">>>去看看吃点啥</a></button>
+    </div>
+    <div class="row box-head">
+      <div class="col-md-12">
+        <div class="col-md-1">
+          <label class="checkbox" for="checkbox-all">
+            <input type="checkbox" data-toggle="checkbox" value="" id="checkbox-all" checked><b>全选</b>
+          </label>
+        </div>
         <div class="col-md-4">信息</div>
         <div class="col-md-2">单价</div>
         <div class="col-md-2">数量</div>
         <div class="col-md-2">小计</div>
         <div class="col-md-1">操作</div>
       </div>
+    </div>
+    <div class="row box-body">
+    </div>
+    <div class="row box-foot">
       <div class="col-md-12">
         <div class="col-md-1">
-          先空着  
         </div>
-        <div class="col-md-4">
-          <div class="col-md-5 item-img">
-            <img src="/imgs/bocai.png" class="img-items img-rounded" height="100%" width="100%">
-          </div>
-          <div class="col-md-7 item-info">
-            菠菜
-          </div>
-        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-2"></div>
+        <div class="col-md-3">应付总额: <span class="total-text"></span></div>
+        <div class="col-md-3"><button tyep="button" class="btn btn-lg btn-primary btn-block">下单</button></div>
       </div>
     </div>
+  </div>
   <script src="/flat-ui/dist/js/vendor/jquery.min.js"></script>
   <script src="/flat-ui/dist/js/flat-ui.min.js"></script>
   <script src="/js-cookie/src/js.cookie.js"></script>

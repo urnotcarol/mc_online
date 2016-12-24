@@ -6,9 +6,11 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("bower_components/"));
 app.use(express.static("public/"));
 
+// app.use("/", require("./routes/login.js"));
 app.use("/", require("./routes/home.js"));
 app.use("/cart", require("./routes/cart.js"));
-// app.use("/instance", require("./routes/instance.js"));
+app.use("/user", require("./routes/user.js"));
+
 
 var server = app.listen(3000, function() {
   var host = server.address().address;
