@@ -97,4 +97,5 @@ INSERT INTO item (name, detail, pic_path, price, classification) VALUES
 insert into cart values 
   ("testid0", 1, 2),
   ("testid0", 2, 4),
+  ("testid0", 5, 1),
   ("testid0", 3, 1);

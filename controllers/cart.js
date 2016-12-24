@@ -5,10 +5,10 @@ exports.displayPage = function(req, res) {
 }
 
 //获取购物车
-//修改: 去掉了amount, 自己在前台计算总额
+//修改: 去掉了amount, 自己在前台计算总额; 传回了stock,购物车里修改数量需要,不能超过库存
 exports.getCart = function(req, res){
 	var userId = req.query.userId;
-	var querySQL = "SELECT cart.item_id, cart.item_quatity, item.name, item.price, item.detail, item.pic_path FROM cart, item WHERE cart.item_id = item.id AND cart.user_id = ?;";
+	var querySQL = "SELECT cart.item_id, cart.item_quatity, item.name, item.price, item.detail, item.stock, item.pic_path FROM cart, item WHERE cart.item_id = item.id AND cart.user_id = ?;";
 	db.query(querySQL, [userId], function(err,items){
 		if(err){
 			throw err;
@@ -21,7 +21,8 @@ exports.getCart = function(req, res){
 
 
 //添加商品进购物车
-exports.addItem = function(req, res){
+//修改: 修改了函数名为addCartItem
+exports.addCartItem = function(req, res){
 	var userId = req.body.userId;
 	var itemId = req.body.itemId;
 	var quatity = req.body.quatity;
@@ -63,8 +64,8 @@ exports.updateItemQuatity = function(req, res){
 	var userId = req.body.userId;
 	var itemId = req.body.itemId;
 	var quatity = req.body.quatity;
-	var updateSQL = "UPDATE cart SET quatity = ? WHERE user_id = ? AND item_id = ?;";
-	db.query(updateSQL, [userId, itemId], function(err, rows){
+	var updateSQL = "UPDATE cart SET item_quatity = ? WHERE user_id = ? AND item_id = ?;";
+	db.query(updateSQL, [quatity, userId, itemId], function(err, rows){
 		if(err){
 			res.send({status:3001});
 			throw err;
@@ -76,7 +77,8 @@ exports.updateItemQuatity = function(req, res){
 }
 
 //购物车删除商品
-exports.deleteItem = function(req,res){
+//修改:函数名改为deleteCartItem
+exports.deleteCartItem = function(req,res){
 	var userId = req.body.userId;
 	var itemId = req.body.itemId;
 	var deleteSQL = "DELETE FROM cart WHERE user_id = ? AND item_id = ?;";

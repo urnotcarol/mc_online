@@ -4,10 +4,20 @@ $(function() {
     $(".user-log").hide();
     $(".user-about").show();
     $(".userid-text").html(Cookies.get("id"));
+
+    $.ajax({
+      type: "GET",
+      url: "/cart/getCart",
+      data: {
+        userId: Cookies.get("id")
+      },
+      success: function(cartItems) {
+        $(".cartnum-text").html(cartItems.length);
+      }
+    });
   }
 
   $("#logout").on("click", function() {
-    // console.log('aaadfsd');
     Cookies.remove("id");
     Cookies.remove("password");
     location.reload();
@@ -30,7 +40,7 @@ $(function() {
         $("[itemId=" + item.id + "]").find(".quatity-input").attr("max", item.stock);
       });
       $(".quatity-input").blur(function() {
-        if($(this).val() > $(this).attr("max")) {
+        if(Number($(this).val()) > Number($(this).attr("max"))) {
           $(this).val($(this).attr("max"));
         }
       });
@@ -39,7 +49,17 @@ $(function() {
         if(!Cookies.get("id")) {
           location.href = "/user?#login";
         }
-      })
+
+        $.ajax({
+          type: "POST",
+          url: "/cart/addCartItem",
+          data: {
+            userId: Cookies.get("id")
+          }
+        })
+
+
+      });
 
     }
   });

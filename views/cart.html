@@ -28,30 +28,26 @@
           <li><a href="../#items-vegetable">素菜区✪ω✪</a></li>
           <li><a href="../#items-meat">荤菜区◕‿◕</a></li>
         </ul>
-        <form class="navbar-form navbar-left" action="#" role="search">
-          <div class="form-group">
-            <div class="input-group">
-              <input class="form-control" id="navbar-search" type="search" placeholder="搜索想吃的菜(oﾟωﾟo)">
-              <span class="input-group-btn">
-                <button type="submit" class="btn"><span class="fui-search"></span></button>
-              </span>
-            </div>
-          </div>
-        </form>
         <ul class="nav navbar-nav navbar-right">
-          <li  class="active"><a href="/cart"><span class="fa fa-shopping-cart fa-lg"></span>&nbsp;&nbsp;&nbsp;购物车&nbsp;
-            <span class="navbar-new">2</span>
-          </a></li>
+          <li>
+            <a href="/cart"><span class="fa fa-shopping-cart fa-lg"></span><span>&nbsp;&nbsp;&nbsp;购物车&nbsp;</span>
+            <span class="navbar-new cartnum-text"></span>
+            </a>
+          </li>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">你的名字 <b class="caret"></b></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="userid-text"></span> <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><a href="#">修改密码</a></li>
               <li><a href="#">充值</a></li>
               <li><a href="#">订单查询</a></li>
               <li class="divider"></li>
-              <li><a href="#">退出</a></li>
+              <li id="logout"><a href="#">退出</a></li>
             </ul>
           </li>
+        </ul>
+        <ul class="user-log nav navbar-nav navbar-right" style="display:none;">
+          <li><a href="/user?#login">登录</a></li>
+          <li><a href="/user?#logup">注册</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div>
@@ -76,7 +72,7 @@
         <span class="price-text"></span>
       </div>
       <div class="col-md-2">
-        <span class="quatity-text"></span>
+        <input class="quatity-input" min="1" type="number" value="">
       </div>
       <div class="col-md-2">
         <span class="subtotal-text"></span>
@@ -114,8 +110,7 @@
       <div class="col-md-12">
         <div class="col-md-1">
         </div>
-        <div class="col-md-3"></div>
-        <div class="col-md-2"></div>
+        <div class="col-md-5"><span style="display:none;" class="overflow-hint">您要的数量超出库存，已为您调整为最大库存量(｡・`ω´･)　</span></div>
         <div class="col-md-3">应付总额: <span class="total-text"></span></div>
         <div class="col-md-3"><button tyep="button" class="btn btn-lg btn-primary btn-block">下单</button></div>
       </div>
