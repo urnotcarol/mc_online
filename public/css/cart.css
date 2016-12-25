@@ -1,6 +1,6 @@
 body {
  min-height: 2000px;
- padding-top: 70px;
+ padding-top: 50px;
 }
 
 #navbar-search {
@@ -24,8 +24,7 @@ body {
   font-weight: bold;
 }
 
-.box-foot {
-  margin-bottom: 20px;
+.navbar-fixed-bottom {
   padding: 14px 0;
   border: 1px solid #ddd;
   background-color: #ecf0f1;

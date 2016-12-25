@@ -1,13 +1,31 @@
 $(function() {
+  var getCartNums = function() {
+    $.ajax({
+      type: "GET",
+      url: "/cart/getCart",
+      data: {
+        userId: Cookies.get("id")
+      },
+      success: function(cartItems) {
+        var totalQuatity = 0;
+        cartItems.forEach(function(cartItem) {
+          totalQuatity += cartItem.item_quatity;
+        })
+        $(".cartnum-text").html(totalQuatity);
+      }
+    });
+  }
+  getCartNums();
+
   var showEmptyCart = function() {
     $(".empty-cart").show();
     $(".box-head, .box-body, .box-foot").hide();
+    getCartNums();
   }
 
   if(Cookies.get("id") === undefined || Cookies.get("password") === undefined) {
     location.href = "/";
   }
-
 
   $(".userid-text").html(Cookies.get("id"));
   $("#logout").on("click", function() {
@@ -23,7 +41,6 @@ $(function() {
       userId: Cookies.get("id")
     },
     success: function(cartItems) {
-      $(".cartnum-text").html(cartItems.length);
       if(cartItems.length === 0) {
         showEmptyCart();
       }
@@ -54,11 +71,22 @@ $(function() {
           $(".total-text").html("￥" + total + ".0");
         }
 
+        var tempCache;
+        $(".quatity-input").focus(function() {
+          tempCache = $(this).val();
+        });
+        $(".quatity-input").blur(function() {
+          if($(this).val() == "" || Number($(this).val()) < 0) {
+            $(this).val(tempCache);
+          }
+        })
+
         $(".quatity-input").bind("input propertychange", function() {
-          if(!$(this).val() == "") {
+          if(!$(this).val() == "" && Number($(this).val()) > 0) {
             var cartItem = $(this).parent().parent();
             var quatity = $(this).val();
             var maxQuatity = $(this).attr("max");
+            var minQuatity = $(this).attr("min");
 
             if(Number($(this).val()) > Number($(this).attr("max"))) {
               $(".overflow-hint").show();
@@ -78,6 +106,7 @@ $(function() {
                     //修改subtotal
                     cartItem.find(".subtotal-text").html("￥" + cartItem.find(".price-text").attr("price") * maxQuatity + ".0");
                     cartItem.find(".subtotal-text").attr("subtotal", cartItem.find(".price-text").attr("price") * maxQuatity);
+                    getCartNums();
                     getTotal();
                   }
                 }
@@ -96,6 +125,7 @@ $(function() {
                     //修改subtotal
                     cartItem.find(".subtotal-text").html("￥" + cartItem.find(".price-text").attr("price") * quatity + ".0");
                     cartItem.find(".subtotal-text").attr("subtotal", cartItem.find(".price-text").attr("price") * quatity);
+                    getCartNums();
                     getTotal();
                   }
                 }
@@ -146,9 +176,11 @@ $(function() {
                 cartItem.fadeOut("normal", function() {
                   cartItem.remove();
                   getTotal();
+                  getCartNums();
                 });
                 if($(".box-body").children().length === 1) {
                   showEmptyCart();
+                  getCartNums();
                 }
               }
             }

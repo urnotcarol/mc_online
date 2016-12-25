@@ -26,16 +26,18 @@ exports.addCartItem = function(req, res){
 	var userId = req.body.userId;
 	var itemId = req.body.itemId;
 	var quatity = req.body.quatity;
-	var queryItemSQL = "SELECT itemId FROM cart WHERE user_id = ?;";
-	var updateItemSQL = "UPDATE cart SET item_quatity = (SELECT quatity FROM cart WHERE user_id = ?) + ? WHERE user_id = ?;";
+	var queryItemSQL = "SELECT item_id FROM cart WHERE user_id = ? and item_id = ?;";
+	var updateItemSQL = "UPDATE cart SET item_quatity =  item_quatity + ? WHERE user_id = ? and item_id = ?;";
 	var addItemSQL = "INSERT INTO cart (user_id, item_id, item_quatity) VALUES (?, ?, ?);";
-	db.query(queryItemSQL, [userId], function(err, rows){
+
+  //这个函数写的不对, 查询语句应该是 select * from cart where user_id = userId and item_id = itemId;
+	db.query(queryItemSQL, [userId, itemId], function(err, rows){
 		if(err){
 			throw err;
 		}
-		else if(rows.lendth === 1){
+		else if(rows.length === 1){
 			//购物车里已有该商品，修改数量
-			db.query(updateItemSQL, [userId, quatity, userId], function(err, rows){
+			db.query(updateItemSQL, [quatity, userId, itemId], function(err, rows){
 				if(err){
 					res.send({status:2001});
 					throw err;
@@ -47,7 +49,7 @@ exports.addCartItem = function(req, res){
 		}
 		else{
 			//购物车里没有该商品
-			db.query(addItemSQL, [user_id, itemId, quatity], function(err, rows){
+			db.query(addItemSQL, [userId, itemId, quatity], function(err, rows){
 				if(err){
 					throw err;
 				}
