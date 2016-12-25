@@ -1,7 +1,11 @@
 var db = require("./databaseConnector.js");
 
-exports.displayPage = function(req, res) {
+exports.displayUserPage = function(req, res) {
   res.sendfile("views/user.html");
+}
+
+exports.displayProfilePage = function(req, res) {
+  res.sendfile("views/profile.html");
 }
 
 //登录
@@ -73,7 +77,7 @@ exports.changePassword = function(req, res){
 	db.query(querySQL, [userId, oldPassword], function(err, rows){
 		if(err) {
 			//修改密码失败：查表失败
-			res.send({status:1201});
+			res.send({status:1202});
 			throw err;
 		}
 		else{
@@ -82,7 +86,7 @@ exports.changePassword = function(req, res){
 				db.query(changeSQL, [newPassword, userId], function(err, rows){
 					if(err){
 						//修改密码失败：查表失败
-						res.send({status:1201});
+						res.send({status:1202});
 						throw err;
 					}
 					else{
@@ -120,8 +124,8 @@ exports.getBalance = function(req, res){
 exports.deposit = function(req, res){
 	var userId = req.body.userId;
 	var money = req.body.money;
-	var depositSQL = "UPDATE users set balance = (SELECT balance FROM users WHERE id = ?) + ? WHERE id = ?;";
-	db.query(depositSQL, [userId, money, userId], function(err, rows){
+	var depositSQL = "UPDATE users set balance = balance + ? WHERE id = ?;";
+	db.query(depositSQL, [money, userId], function(err, rows){
 		if(err){
 			res.send({status:1301});
 			throw err;

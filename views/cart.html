@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>蜀蜀的冒菜小铺</title>
+  <title>蜀蜀的冒菜店</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="flat-ui/dist/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="flat-ui/dist/css/flat-ui.css" rel="stylesheet">
@@ -19,7 +19,7 @@
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-4">
           <span class="sr-only">Toggle navigation</span>
         </button>
-        <a class="navbar-brand" href="/">蜀蜀的冒菜小铺</a>
+        <a class="navbar-brand" href="/">蜀蜀的冒菜店</a>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
@@ -30,16 +30,16 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li>
-            <a href="/cart"><span class="fa fa-shopping-cart fa-lg"></span><span>&nbsp;&nbsp;&nbsp;购物车&nbsp;</span>
+            <a href="/cart"><span style="color:#1ABC9C;" class="fa fa-shopping-cart fa-lg"></span><span style="color:#1ABC9C;">&nbsp;&nbsp;&nbsp;购物车&nbsp;</span>
             <span class="navbar-new cartnum-text"></span>
             </a>
           </li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="userid-text"></span> <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="#">修改密码</a></li>
-              <li><a href="#">充值</a></li>
-              <li><a href="#">订单查询</a></li>
+              <li><a href="/profile?#changePassword">修改密码</a></li>
+              <li><a href="/profile?#deposit">钱包充值</a></li>
+              <li><a href="/profile?#orders">我的订单</a></li>
               <li class="divider"></li>
               <li id="logout"><a href="#">退出</a></li>
             </ul>

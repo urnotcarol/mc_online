@@ -54,7 +54,7 @@ $(function() {
           $("[cartItemId=" + cartItem.item_id + "]").find(".quatity-input").val(cartItem.item_quatity);
           $("[cartItemId=" + cartItem.item_id + "]").find(".quatity-input").attr("max", cartItem.stock);
           $("[cartItemId=" + cartItem.item_id + "]").find(".name-text").html(cartItem.name);
-          $("[cartItemId=" + cartItem.item_id + "]").find(".price-text").html("￥" + cartItem.price + ".0/份");
+          $("[cartItemId=" + cartItem.item_id + "]").find(".price-text").html("￥" + cartItem.price.toFixed(1) + "/份");
           $("[cartItemId=" + cartItem.item_id + "]").find(".price-text").attr("price", cartItem.price);
           $("[cartItemId=" + cartItem.item_id + "]").find(".subtotal-text").html("￥" + cartItem.price*cartItem.item_quatity + ".0");
           $("[cartItemId=" + cartItem.item_id + "]").find(".subtotal-text").attr("subtotal", cartItem.price*cartItem.item_quatity);
@@ -68,7 +68,7 @@ $(function() {
               total += Number($(this).parent().parent().siblings().find(".subtotal-text").attr("subtotal"));
             }
           })
-          $(".total-text").html("￥" + total + ".0");
+          $(".total-text").html("￥" + total.toFixed(1));
         }
 
         var tempCache;
@@ -123,7 +123,7 @@ $(function() {
                 success: function(result) {
                   if(result.status === 3000) {
                     //修改subtotal
-                    cartItem.find(".subtotal-text").html("￥" + cartItem.find(".price-text").attr("price") * quatity + ".0");
+                    cartItem.find(".subtotal-text").html("￥" + Number(cartItem.find(".price-text").attr("price") * quatity).toFixed(1));
                     cartItem.find(".subtotal-text").attr("subtotal", cartItem.find(".price-text").attr("price") * quatity);
                     getCartNums();
                     getTotal();

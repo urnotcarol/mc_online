@@ -30,6 +30,8 @@ $(function() {
     showLogupDiv();
   });
 
+
+
   var primaryColor = "#1ABC9C";  //green
   var warningColor = "#f1c40f";  //yellow
 
@@ -73,8 +75,8 @@ $(function() {
     if(id.length < 6 || id.length > 20 || id.replace(/\w/g, "").length > 0) {
       hintInvalidId($(this), invalidId);
     } else {
-      $(this).parent().next().empty();
       $(this).parent().removeClass("has-warning");
+      $(this).parent().next().html('<i class="fa fa-lg fa-check-circle"></i>');
       $(this).attr("id") === "login-id" ? validLoginId = true : validLogupId = true;
     }
   });
@@ -89,8 +91,9 @@ $(function() {
     if(password.length < 6 || password.length > 20) {
       hintInvalidPassword($(this));
     } else {
-      $(this).parent().next().empty();
+      // $(this).parent().next().empty();
       $(this).parent().removeClass("has-warning");
+      $(this).parent().next().html('<i class="fa fa-lg fa-check-circle"></i>');
       $(this).attr("id") === "login-password" ? validLoginPassword = true : validLogupPassword = true;
     }
   });
@@ -104,8 +107,9 @@ $(function() {
   if($("#logup-password").val() !== $(this).val()) {
     hintConfirm($(this));
   } else {
-    $(this).parent().next().empty();
+    // $(this).parent().next().empty();
     $(this).parent().removeClass("has-warning");
+    $(this).parent().next().html('<i class="fa fa-lg fa-check-circle"></i>');
     validConfirm = true;
     }
   });

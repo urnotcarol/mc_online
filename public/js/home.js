@@ -35,7 +35,7 @@ $(function() {
       items.forEach(function(item) {
         $("#sample").children().attr("itemId", item.id);
         item.classification === "vegetable" ? $("#items-vegetable").append($("#sample").html()) : $("#items-meat").append($("#sample").html());
-        $("[itemId=" + item.id + "]").find(".price-text").html("￥" + item.price + ".0/份");
+        $("[itemId=" + item.id + "]").find(".price-text").html("￥" + item.price.toFixed(1) + "/份");
         $("[itemId=" + item.id + "]").find(".name-text").html(item.name);
         $("[itemId=" + item.id + "]").find(".detail-text").html(item.detail);
         $("[itemId=" + item.id + "]").find(".stock-text").html(item.stock);

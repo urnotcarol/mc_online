@@ -15,4 +15,8 @@ body {
   text-align: left;
   word-wrap: break-word;
   margin-top: 2px;
-}   
+}
+
+.balance-text {
+  color: #e74c3c;
+}

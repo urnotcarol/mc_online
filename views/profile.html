@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>蜀蜀的冒菜店</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="flat-ui/dist/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="flat-ui/dist/css/flat-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="Font-Awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/user.css">
+</head>
+<body>
+  <div class="navbar navbar-default navbar-lg navbar-fixed-top" role="navigation">
+    <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-4">
+          <span class="sr-only">Toggle navigation</span>
+        </button>
+        <a class="navbar-brand" href="/">蜀蜀的冒菜店</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="navbar-collapse-4">
+        <ul class="nav navbar-nav">
+          <li><a href="/#items-vegetable">素菜区✪ω✪</a></li>
+          <li><a href="/#items-meat">荤菜区◕‿◕</a></li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-left">
+          <li class="active" id="text-changePw"><a href="#">修改密码</a></li>
+          <li class="active" id="text-deposit"><a href="#">钱包充值</a></li>
+          <li class="active" id="text-orders"><a href="#">我的订单</a></li>
+        </ul>
+
+        <ul class="user-about nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="userid-text"></span> <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li id="nav-changePw"><a href="/profile?#changePassword">修改密码</a></li>
+              <li id="nav-deposit"><a href="/profile?#deposit">钱包充值</a></li>
+              <li id="nav-orders"><a href="/profile?#orders">我的订单</a></li>
+              <li class="divider"></li>
+              <li id="logout"><a href="#">退出</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul style="display:none;" class="user-log nav navbar-nav navbar-right">
+          <li><a href="/user?#login">登录</a></li>
+          <li><a href="/user?#logup">注册</a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="jumbotron"  id="div-changePw">  <!-- 获得带圆角的超大屏幕 -->
+      <div class="row">
+        <div class="col-md-12">
+          <form class="form-horizontal" role="form">
+            <div class="form-group">
+              <label for="oldpw" class="col-lg-2 control-label">旧密码</label>
+              <div class="col-lg-7">
+                <input type="password" class="form-control" id="oldPw">
+              </div>
+              <label for="oldPw" id="oldPw-hint" class="col-lg-3 hint"></label>
+            </div>
+            <div class="form-group">
+              <label for="newPw" class="col-lg-2 control-label">新密码</label>
+              <div class="col-lg-7">
+                <input type="password" class="form-control" id="newPw">
+              </div>
+              <label for="newPw" id="newPw-hint" class="col-lg-3 hint"></label>
+            </div>
+            <div class="form-group">
+              <label for="confirm-newpw" class="col-lg-2 control-label">确认新密码</label>
+              <div class="col-lg-7">
+                <input type="password" class="form-control" id="confirm-newPw">
+              </div>
+              <label for="confirm-newPw" id="confirm-newPw-hint" class="col-lg-3 hint"></label>
+            </div>
+            <div class="form-group">
+              <div class="col-lg-offset-2 col-lg-7">
+                <button id="submit-changePw" class="btn btn-primary btn-block">确认修改</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="jumbotron" id="div-deposit" style="display:none;">
+      <div class="row">
+        <div class="col-md-12">
+
+          <form id="logup-form" class="form-horizontal" role="form">
+            <div class="form-group">
+              <label for="input-deposit" class="col-lg-2 control-label">钱包余额</label>
+              <div class="col-lg-7">
+                <p class="form-control balance-text"></p>
+              </div>
+              <label for="input-deposit" id="input-deposit-hint" class="col-lg-3 hint"></label>
+            </div>
+            <div class="form-group">
+              <label for="input-deposit" class="col-lg-2 control-label">充值金额</label>
+              <div class="col-lg-7">
+                <input type="number" class="form-control" id="input-deposit" min="0" max="1000">
+              </div>
+              <label for="input-deposit" id="input-deposit-hint" class="col-lg-3 hint"></label>
+            </div>
+            <div class="form-group">
+              <div class="col-lg-offset-2 col-lg-7">
+                <button id="submit-deposit" class="btn btn-primary btn-block">充值</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="" id="div-orders">
+      好多订单...
+    </div>
+  </div>
+  <script src="/flat-ui/dist/js/vendor/jquery.min.js"></script>
+  <script src="/flat-ui/dist/js/flat-ui.min.js"></script>
+  <script src="/js-cookie/src/js.cookie.js"></script>
+  <script src="/js/profile.js"></script>
+</body>
+</html>
