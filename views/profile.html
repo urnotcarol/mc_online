@@ -37,11 +37,11 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="userid-text"></span> <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li id="nav-changePw"><a href="/profile?#changePassword">修改密码</a></li>
-              <li id="nav-deposit"><a href="/profile?#deposit">钱包充值</a></li>
-              <li id="nav-orders"><a href="/profile?#orders">我的订单</a></li>
+              <li id="nav-changePw"><a href="/profile?#changePassword"><span class="fa fa-asterisk">&nbsp;&nbsp;修改密码</a></li>
+              <li id="nav-deposit"><a href="/profile?#deposit"><span class="fa fa-cny">&nbsp;&nbsp;&nbsp;钱包充值</a></li>
+              <li id="nav-orders"><a href="/profile?#orders"><span class="fa fa-check-square-o">&nbsp;&nbsp;我的订单</a></li>
               <li class="divider"></li>
-              <li id="logout"><a href="#">退出</a></li>
+              <li id="logout"><a href="#"><span class="fa fa-circle-o-notch">&nbsp;&nbsp;退出</a></li>
             </ul>
           </li>
         </ul>
@@ -92,34 +92,94 @@
     <div class="jumbotron" id="div-deposit" style="display:none;">
       <div class="row">
         <div class="col-md-12">
-
-          <form id="logup-form" class="form-horizontal" role="form">
+          <form class="form-horizontal" role="form">
             <div class="form-group">
               <label for="input-deposit" class="col-lg-2 control-label">钱包余额</label>
-              <div class="col-lg-7">
-                <p class="form-control balance-text"></p>
+              <div class="col-lg-6">
+                <p class="balance-text"></p>
               </div>
               <label for="input-deposit" id="input-deposit-hint" class="col-lg-3 hint"></label>
             </div>
             <div class="form-group">
               <label for="input-deposit" class="col-lg-2 control-label">充值金额</label>
-              <div class="col-lg-7">
+              <div class="col-lg-6">
                 <input type="number" class="form-control" id="input-deposit" min="0" max="1000">
               </div>
               <label for="input-deposit" id="input-deposit-hint" class="col-lg-3 hint"></label>
             </div>
             <div class="form-group">
-              <div class="col-lg-offset-2 col-lg-7">
+              <div class="col-lg-offset-2 col-lg-6">
                 <button id="submit-deposit" class="btn btn-primary btn-block">充值</button>
               </div>
             </div>
           </form>
         </div>
       </div>
-    </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="col-md-6">
 
-    <div class="" id="div-orders">
-      好多订单...
+          </div>
+          <div class="col-md-6">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sample-order-item" style="display:none;">
+    <div class="col-md-12 order-item">
+      <div class="col-md-6">
+        <div class="col-md-6 item-img">
+          <img class="img-items img-rounded" height="60%" width="60%">
+        </div>
+        <div class="col-md-6 item-name">
+          <span class="name-text"></span>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <span class="price-text"></span>
+      </div>
+      <div class="col-md-2">
+        <span class="quatity-text"></span>
+      </div>
+      <div class="col-md-2">
+        <span class="subtotal-text"></span>
+      </div>
+    </div>
+  </div>
+
+  <div id="sample-order" style="display:none;">
+    <div class="col-md-12 order">
+      <div class="col-md-12 order-about">
+        <div class="col-md-6">
+          <span>订单号：</span><span class="order-id-text"></span><br>
+          <span>下单时间：</span><span class="order-time-text"></span>
+        </div>
+        <div class="col-md-6 order-total-div">
+          总额：<span class="order-total-text"></span>
+        </div>
+      </div>
+      <div class="col-md-12 order-items-head">
+        <div class="col-md-6">信息</div>
+        <div class="col-md-2">单价</div>
+        <div class="col-md-2">数量</div>
+        <div class="col-md-2">小计</div>
+      </div>
+      <div class="col-md-12 order-items-body">
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container" id="div-orders">
+    <div class="row empty-orders">
+      <span class="fa fa-file-o fa-5x"></span>
+      <p>还没有订单(・(ｪ)・)</p>
+      <button class="btn btn-link"><a href="../">>>去看看吃点啥</a></button>
+    </div>
+    <div class="row orders-box">
     </div>
   </div>
   <script src="/flat-ui/dist/js/vendor/jquery.min.js"></script>

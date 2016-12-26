@@ -125,13 +125,21 @@ exports.deposit = function(req, res){
 	var userId = req.body.userId;
 	var money = req.body.money;
 	var depositSQL = "UPDATE users set balance = balance + ? WHERE id = ?;";
+  var createLogSQL = "insert into deposit_log (user_id, money) values (?, ?);"
 	db.query(depositSQL, [money, userId], function(err, rows){
 		if(err){
 			res.send({status:1301});
 			throw err;
 		}
 		else{
-			res.send({status:1300});
+      db.query(createLogSQL, [userId, money], function(err, rows) {
+        if(err) {
+          res.send({status: 1301})
+          throw err;
+        } else {
+          res.send({status: 1300});
+        }
+      })
 		}
 	});
 }

@@ -51,41 +51,40 @@ $(function() {
 
       $(".add-to-cart").on("click", function() {
         if(!Cookies.get("id")) {
+          console.log("a");
           location.href = "/user?#login";
         }
-
-        var item = $(this).parent().parent().parent();
-        console.log(item.find(".quatity-input").val());
-        $.ajax({
-          type: "POST",
-          url: "/cart/addCartItem",
-          data: {
-            userId: Cookies.get("id"),
-            itemId: item.attr("itemId"),
-            quatity: item.find(".quatity-input").val()
-          },
-          success: function(result) {
-            if(result.status === 2000) {
-              $.ajax({
-                type: "GET",
-                url: "/cart/getCart",
-                data: {
-                  userId: Cookies.get("id")
-                },
-                success: function(cartItems) {
-                  var totalQuatity = 0;
-                  cartItems.forEach(function(cartItem) {
-                    totalQuatity += cartItem.item_quatity;
-                  })
-                  $(".cartnum-text").html(totalQuatity);
-                }
-              });
+        else {
+          var item = $(this).parent().parent().parent();
+          console.log(item.find(".quatity-input").val());
+          $.ajax({
+            type: "POST",
+            url: "/cart/addCartItem",
+            data: {
+              userId: Cookies.get("id"),
+              itemId: item.attr("itemId"),
+              quatity: item.find(".quatity-input").val()
+            },
+            success: function(result) {
+              if(result.status === 2000) {
+                $.ajax({
+                  type: "GET",
+                  url: "/cart/getCart",
+                  data: {
+                    userId: Cookies.get("id")
+                  },
+                  success: function(cartItems) {
+                    var totalQuatity = 0;
+                    cartItems.forEach(function(cartItem) {
+                      totalQuatity += cartItem.item_quatity;
+                    })
+                    $(".cartnum-text").html(totalQuatity);
+                  }
+                });
+              }
             }
-          }
-
-        })
-
-
+          })
+        }
       });
 
     }

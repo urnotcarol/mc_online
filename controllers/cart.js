@@ -95,57 +95,44 @@ exports.deleteCartItem = function(req,res){
 	});
 }
 
-//结账
-exports.checkOut = function(req, res){
-	var userId = req.body.userId;
-	var queryAmountSQL = "SELECT SUM(price * quatity) as amount FROM cart HAVING user_id = ?;";
-	var queryBalanceSQL = "SELECT balance FROM users WHERE id = ?;";
-	//var insertOrderSQL = "INSERT INTO orders (user_id, amount) VALUES();";
-	db.query(queryAmountSQL , [userId], function(err, rows){
-		if(err){
-			res.send({status:3201});
-			throw err;
-		}
-		else{
-			var amount = rows[0].amount;
-			db.query(queryBalanceSQL, [userId], function(err, rows){
-				if(err){
-					throw err;
+var updateStockAndSale = function(items, res){
+	var updateSQL = "UPDATE item set stock = stock - ?, sales = sales + ? WHERE id = ?;";
+	var len = items.length;
+	var t = 0;
+	for(var i = 0; i < len; i++){
+		var id = items[i].itemId;
+		var quatity = items[i].itemQuatity;
+		db.query(updateSQL, [quatity, quatity, id], function(err, rows){
+			if(err){
+				throw err;
+			}
+			else{
+				if(t++ === len - 1){
+					res.send({status:3200});
 				}
-				else{
-					if(amount < rows[0].balance){
-						//可以支付，添加进订单
-						insertIntoOrder(userId, amount);
-						//res.send({status:3200});
-					}
-					else{
-						//结账失败：余额不足
-						res.send({status:3201});
-					}
-				}
-			});
-		}
-	});
+			}
+		});
+	}
 }
 
-var insertIntoOrder = function(userId, amount){
+var insertIntoOrder = function(userId, amount, items, res) {
 	// var queryItemSQL = "SELECT cart.item_id, cart.item_quatity FROM cart WHERE cart.user_id = ?;";
 	var insertOrderSQL = "INSERT INTO orders (user_id, amount) VALUES(?, ?);";
-	var insertOrderItemSQL = "INSERT INTO order_item (order_id, item_id, item_quatity) VALUES(?, ?);";
+	var insertOrderItemSQL = "INSERT INTO order_item (order_id, item_id, item_quatity, item_price) VALUES(?, ?, ?, ?);";
 	// db.query(queryItemSQL, [userId], function(err, items){
 		// if(err){
 			// throw err;
 		// }
 		// else{
-			var items = req.body.items;
+			// var items = req.body.items;
 			//至此，查询出商品和数量，存在items之中
-
-			db.query("SELECT @@order_id;", function(err, rows){
-				if(err){
-					throw err;
-				}
-				else{
-					var orderId = rows[0].order_id;
+      //
+			// db.query("SELECT @@order_id;", function(err, rows){
+			// 	if(err){
+			// 		throw err;
+			// 	}
+			// 	else{
+					//var orderId = rows[0].order_id;
 					//下面向order表中插入
 					db.query(insertOrderSQL, [userId, amount], function(err, rows){
 						if(err){
@@ -154,46 +141,70 @@ var insertIntoOrder = function(userId, amount){
 						else{
 							//向order表中插入完成
 							//下面向order_item表中插入
+              console.log(rows.insertId);
+              var orderId = rows.insertId;
 							var len = items.length;
 							var t = 0;
 							for(var i = 0; i < len; i++){
-								db.query(insertOrderItemSQL, [orderId, items[i].item_id, items[i].item_quatity], function(err, rows){
+								db.query(insertOrderItemSQL, [orderId, items[i].itemId, items[i].itemQuatity, items[i].itemPrice], function(err, rows){
 									if(err){
 										throw err;
 									}
 									else{
 										if(t++ === len - 1){
-											updateStockAndSale(items);
+                      console.log("order_item");
+											updateStockAndSale(items, res);
 										}
 									}
 								});
 							}
 						}
 					});
-				}
-			});
+			// 	}
+			// });
 
 		// }
 	// });
 }
 
-var updateStockAndSale = function(items){
-	var updateSQL = "UPDATE item set stock = (SELECT stock FROM item WHERE id = ?) - ? WHERE id = ?; UPDATE item set sales = (SELECT sales FROM item WHERE id = ?) + ? WHERE id = ?";
-	var len = items.length;
-	var t = 0;
-	for(var i = 0; i< len; i++){
-		var id = items[i].item_id;
-		var quatity = items[i].item_quatity;
-		db.query(updateSQL, [id, quatity, id, id, quatity, id], function(err, rows){
-			if(err){
-				throw err;
-			}
-			else{
-				t++;
-				if(t === len - 1){
-					res.send({status:3200});
+//结账
+exports.checkOut = function(req, res){
+  console.log(req.body);
+	var userId = req.body.userId;
+  var amount = req.body.amount;
+  var items = req.body.items;
+	// var queryAmountSQL = "SELECT SUM(price * quatity) as amount FROM cart HAVING user_id = ?;";
+	var queryBalanceSQL = "SELECT balance FROM users WHERE id = ?;";
+	//var insertOrderSQL = "INSERT INTO orders (user_id, amount) VALUES();";
+	// db.query(queryAmountSQL , [userId], function(err, rows){
+	// 	if(err){
+	// 		res.send({status:3201});
+	// 		throw err;
+	// 	}
+	// 	else{
+			// var amount = rows[0].amount;
+			db.query(queryBalanceSQL, [userId], function(err, rows){
+				if(err){
+					throw err;
 				}
-			}
-		});
-	}
+				else{
+					if(amount < rows[0].balance){
+						//可以支付，添加进订单
+            db.query("UPDATE users SET balance = balance - ? WHERE id = ?;", [amount, userId], function(err, rows){
+              if(err){
+                throw err;
+              }
+              else{
+                insertIntoOrder(userId, amount, items, res);
+              }
+            });
+					}
+					else{
+						//结账失败：余额不足
+						res.send({status:3201});
+					}
+				}
+			});
+		// }
+	// });
 }

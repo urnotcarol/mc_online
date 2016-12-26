@@ -7,8 +7,12 @@ $(function() {
   $("#logout").on("click", function() {
     Cookies.remove("id");
     Cookies.remove("password");
-    location.reload();
+    location.href = "/";
   })
+
+  function PrefixInteger(num, length) {
+    return ( "0000000000000000" + num ).substr( -length );
+  }
 
   var showChangePwDiv = function() {
     $("#text-changePw").show();
@@ -204,7 +208,53 @@ $(function() {
         }
       })
     }
+  });
+
+//查询所有订单
+  $.ajax({
+    type: "POST",
+    url: "/profile/getOrders",
+    data: {
+      userId: Cookies.get("id")
+    },
+    success: function(result) {
+      console.log(result);
+      if(result.status === 4100) {
+        $(".orders-box").hide();
+        $(".empty-orders").show();
+      } else {
+        $(".empty-orders").hide();
+        $(".orders-box").show();
+        var ordersNum = result.length;
+        var orders = result;
+        orders.forEach(function(order) {
+          var items = order.items;
+          $("#sample-order").children().attr("orderId", order.id);
+          $(".orders-box").append($("#sample-order").html());
+          $("[orderId=" + order.id + "]").find(".order-time-text").html(order.create_time.replace("T", "&nbsp;&nbsp;").replace(".000Z", ""));
+          $("[orderId=" + order.id + "]").find(".order-id-text").html(PrefixInteger(order.id, 8));
+          $("[orderId=" + order.id + "]").find(".order-total-text").html("￥" + order.amount.toFixed(1));
+          $("#sample-order").children().removeAttr("orderId");
+          items.forEach(function(orderItem) {
+            $("#sample-order-item").children().attr("orderItemId", orderItem.itemId);
+            $("[orderId=" + order.id + "]").find(".order-items-body").append($("#sample-order-item").html());
+            $("[orderId=" + order.id + "]").find("[orderItemId=" + orderItem.itemId + "]").find(".name-text").html(orderItem.itemName);
+            $("[orderId=" + order.id + "]").find("[orderItemId=" + orderItem.itemId + "]").find(".price-text").html("￥" + orderItem.itemPrice.toFixed(1));
+            $("[orderId=" + order.id + "]").find("[orderItemId=" + orderItem.itemId + "]").find(".quatity-text").html(orderItem.quatity);
+            $("[orderId=" + order.id + "]").find("[orderItemId=" + orderItem.itemId + "]").find(".subtotal-text").html("￥" + Number(orderItem.itemPrice*orderItem.quatity).toFixed(1));
+            $("[orderId=" + order.id + "]").find("[orderItemId=" + orderItem.itemId + "]").find("img").attr("src", orderItem.picPath);
+            $("#sample-order-item").children().removeAttr("orderItemId");
+          })
+        });
+
+      }
+    }
+
   })
+
+
+
+
 
 
 

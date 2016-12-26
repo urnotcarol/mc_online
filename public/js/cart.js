@@ -56,7 +56,7 @@ $(function() {
           $("[cartItemId=" + cartItem.item_id + "]").find(".name-text").html(cartItem.name);
           $("[cartItemId=" + cartItem.item_id + "]").find(".price-text").html("￥" + cartItem.price.toFixed(1) + "/份");
           $("[cartItemId=" + cartItem.item_id + "]").find(".price-text").attr("price", cartItem.price);
-          $("[cartItemId=" + cartItem.item_id + "]").find(".subtotal-text").html("￥" + cartItem.price*cartItem.item_quatity + ".0");
+          $("[cartItemId=" + cartItem.item_id + "]").find(".subtotal-text").html("￥" + Number(cartItem.price*cartItem.item_quatity).toFixed(1));
           $("[cartItemId=" + cartItem.item_id + "]").find(".subtotal-text").attr("subtotal", cartItem.price*cartItem.item_quatity);
           $("[cartItemId=" + cartItem.item_id + "]").find("img").attr("src", cartItem.pic_path);
         });
@@ -68,6 +68,7 @@ $(function() {
               total += Number($(this).parent().parent().siblings().find(".subtotal-text").attr("subtotal"));
             }
           })
+          $(".total-text").attr("total", total);
           $(".total-text").html("￥" + total.toFixed(1));
         }
 
@@ -169,7 +170,7 @@ $(function() {
             url: "cart/deleteCartItem",
             data: {
               userId: Cookies.get("id"),
-              itemId: cartItem.attr("cartItemId"),
+              itemId: cartItem.attr("cartItemId")
             },
             success: function(result) {
               if(result.status === 3100) {
@@ -186,6 +187,55 @@ $(function() {
             }
           })
         });
+
+        $("#submit-checkout").on("click", function() {
+          var orderItems = [];
+          $(".box-body :checkbox").each(function() {
+            if($(this).prop("checked")) {
+              orderItems.push({
+                  itemId: $(this).parent().parent().parent().attr("cartItemId"),
+                  itemPrice: $(this).parent().parent().parent().find(".price-text").attr("price"),
+                  itemQuatity: $(this).parent().parent().parent().find(".quatity-input").val()
+              });
+            }
+          })
+          $.ajax({
+            type: "POST",
+            url: "/cart/checkOut",
+            data: {
+              userId: Cookies.get("id"),
+              items: orderItems,
+              amount: $(this).parent().parent().find(".total-text").attr("total")
+            },
+            success: function(result) {
+              console.log(result);
+              if(result.status === 3201) {
+                alert("余额不足!╯ω╰请充值后再来买~");
+              } else if(result.status === 3200) {
+                alert("下单成功!<（@￣︶￣@）>");
+                orderItems.forEach(function(orderItem) {
+                  $.ajax({
+                    type: "DELETE",
+                    url: "/cart/deleteCartItem",
+                    data: {
+                      userId: Cookies.get("id"),
+                      itemId: orderItem.itemId
+                    },
+                    success: function(result) {
+                      console.log(result);
+                      if(result.status === 3100) {
+                        location.href = "/profile?#orders";
+                      }
+                    }
+                  })
+                })
+              }
+            }
+          })
+        })
+
+
+
       }
     }
   });
