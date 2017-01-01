@@ -34,6 +34,11 @@
         </ul>
 
         <ul class="user-about nav navbar-nav navbar-right">
+          <li>
+            <a href="/cart"><span class="fa fa-shopping-cart fa-lg"></span><span>&nbsp;&nbsp;&nbsp;购物车&nbsp;</span>
+            <span class="navbar-new cartnum-text"></span>
+            </a>
+          </li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="userid-text"></span> <b class="caret"></b></a>
             <ul class="dropdown-menu">
@@ -95,9 +100,14 @@
           <form class="form-horizontal" role="form">
             <div class="form-group">
               <label for="input-deposit" class="col-lg-2 control-label">钱包余额</label>
-              <div class="col-lg-6">
+              <div class="col-lg-5">
                 <p class="balance-text"></p>
               </div>
+
+              <div class="col-lg-offset-3">
+                <button class="btn btn-link" id="get-deposit-log">充值记录</button>
+              </div>
+
               <label for="input-deposit" id="input-deposit-hint" class="col-lg-3 hint"></label>
             </div>
             <div class="form-group">
@@ -115,15 +125,18 @@
           </form>
         </div>
       </div>
-      <div class="row">
+      <div class="row log-head" style="display:none;">
         <div class="col-md-12">
-          <div class="col-md-6">
-
+          <div class="col-md-4">
+            充值金额
           </div>
           <div class="col-md-6">
-
+            充值时间
           </div>
         </div>
+      </div>
+      <div class="row deposit_log" style="display:none;">
+
       </div>
     </div>
   </div>

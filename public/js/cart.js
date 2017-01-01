@@ -91,7 +91,7 @@ $(function() {
 
             if(Number($(this).val()) > Number($(this).attr("max"))) {
               $(".overflow-hint").show();
-              setTimeout(function(){$(".overflow-hint").fadeOut()}, 2000);
+              setTimeout(function(){$(".overflow-hint").fadeOut()}, 3000);
               $(this).val($(this).attr("max"));
 
               $.ajax({
@@ -210,7 +210,8 @@ $(function() {
             success: function(result) {
               console.log(result);
               if(result.status === 3201) {
-                alert("余额不足!╯ω╰请充值后再来买~");
+                // alert("余额不足!╯ω╰请充值后再来买~");
+                $(".few-balance-hint").show();
               } else if(result.status === 3200) {
                 alert("下单成功!<（@￣︶￣@）>");
                 orderItems.forEach(function(orderItem) {

@@ -147,7 +147,7 @@ exports.deposit = function(req, res){
 //获取充值记录
 exports.getDepositLog = function(req, res){
 	var userId = req.body.userId;
-	var querySQL = "SELECT deposit_time, money FROM deposit_log WHERE user_id = ?";
+	var querySQL = "SELECT deposit_time, money FROM deposit_log WHERE user_id = ? order by deposit_time desc;";
 	db.query(querySQL, [userId], function(err, rows){
 		if(err){
 			throw err;

@@ -10,6 +10,21 @@ $(function() {
     location.href = "/";
   })
 
+  $.ajax({
+    type: "GET",
+    url: "/cart/getCart",
+    data: {
+      userId: Cookies.get("id")
+    },
+    success: function(cartItems) {
+      var totalQuatity = 0;
+      cartItems.forEach(function(cartItem) {
+        totalQuatity += cartItem.item_quatity;
+      })
+      $(".cartnum-text").html(totalQuatity);
+    }
+  });
+
   function PrefixInteger(num, length) {
     return ( "0000000000000000" + num ).substr( -length );
   }
@@ -250,6 +265,27 @@ $(function() {
       }
     }
 
+  });
+
+  $("#get-deposit-log").on("click", function() {
+    $.ajax({
+      type: "POST",
+      url: "/profile/getDepositLog",
+      data: {
+        userId: Cookies.get("id")
+      },
+      success: function(result) {
+        $(".deposit_log").empty();
+        result.forEach(function(item) {
+
+
+          $(".deposit_log").append('<div class="col-md-4">' + "￥" + item.money.toFixed(1) + '</div><div class="col-md-6">' + item.deposit_time.replace("T", "&nbsp;&nbsp;").replace(".000Z", "") + '</div>');
+          $(".log-head").show();
+          $(".deposit_log").show();
+        });
+      }
+
+    });
   })
 
 
